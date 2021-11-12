@@ -22,7 +22,7 @@ defmodule Twirp.Protoc.Generator do
       ctx
       | package: desc.package || "",
         syntax: syntax(desc.syntax),
-        module_prefix: get_in(desc, [:options, :elixir_module_prefix]) || (desc.package || "")
+        module_prefix: (desc.options && Map.from_struct(desc.options) |> Map.get(:elixir_module_prefix)) || (desc.package || "")
     }
 
     ctx = %{ctx | dep_type_mapping: get_dep_type_mapping(ctx, desc.dependency, desc.name)}
